@@ -419,9 +419,10 @@ const finishReview = () => {
       </div>
     </header>
 
-    <div class="max-w-7xl mx-auto w-full flex-1 flex gap-6 p-4 sm:p-6 lg:p-8 pb-40 lg:pb-8 relative">
+    <!-- <div class="max-w-7xl mx-auto w-full flex-1 flex gap-6 p-4 sm:p-6 lg:p-8 pb-40 lg:pb-8 relative"> -->
+      <div class="flex">
       <div
-        class="flex-1 bg-tryout-surface rounded-2xl shadow-sm border border-tryout-border p-5 sm:p-8 flex flex-col h-fit">
+        class="flex-1 bg-tryout-surface  shadow-sm border border-tryout-border p-5 sm:p-8 flex flex-col h-fit">
         <div class="flex items-center justify-between mb-6 pb-4 border-b border-tryout-border">
           <div class="flex items-center gap-3">
             <span class="bg-tryout-primary text-white px-3 py-1 rounded-lg font-bold text-sm shadow-sm">
@@ -573,14 +574,14 @@ const finishReview = () => {
       </div>
 
       <div
-        class="hidden lg:flex flex-col w-80 bg-tryout-sidebar rounded-2xl shadow-sm border border-tryout-border h-[calc(100vh-8rem)] sticky top-24">
-        <div class="p-6 border-b border-tryout-border bg-tryout-bg/50 rounded-t-2xl">
+        class="hidden lg:flex flex-col w-80 bg-tryout-sidebar  shadow-sm border border-tryout-border h-[calc(100vh-8rem)] sticky top-24">
+        <div class="p-6 border-b border-tryout-border bg-tryout-bg/50">
           <h3 class="font-bold text-tryout-text flex items-center gap-2">
             <svg class="w-5 h-5 text-tryout-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4 6h16M4 10h16M4 14h16M4 18h16" />
             </svg>
-            Peta Pembahasan
+            Daftar Soal
           </h3>
         </div>
 
@@ -612,7 +613,7 @@ const finishReview = () => {
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
           </svg>
-          Lihat Peta
+          Daftar Soal
         </button>
 
         <button v-if="currentIndex < totalQuestions - 1" @click="nextQuestion"
@@ -689,7 +690,7 @@ const finishReview = () => {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4 6h16M4 10h16M4 14h16M4 18h16" />
             </svg>
-            Peta Soal
+            Daftar Soal
           </h3>
 
           <button @click="showNavigationPanel = false"
