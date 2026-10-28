@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPNS Try Out - Katalog Try Out Online Terlengkap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1e293b',
+                        'navy-light': '#334155',
+                        'sage': '#6b7280',
+                        'sage-light': '#9ca3af',
+                        'cream': '#f8fafc',
+                        'accent': '#2563eb'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .gradient-subtle {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .card-elegant {
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .card-elegant:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border-color: #cbd5e1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .text-elegant {
+            color: #475569;
+            line-height: 1.7;
+        }
+        
+        .section-padding {
+            padding: 4rem 0;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-white/95 backdrop-blur-sm shadow-sm fixed w-full top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="bg-navy text-white px-4 py-2 rounded-lg font-semibold text-lg">
+                        CPNS Try Out
+                    </div>
+                </div>
+                
+                <!-- Navigation Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-sage hover:text-navy font-medium transition duration-300">Beranda</a>
+                    <a href="#katalog" class="text-sage hover:text-navy font-medium transition duration-300">Katalog</a>
+                    <a href="#fitur" class="text-sage hover:text-navy font-medium transition duration-300">Fitur</a>
+                    <a href="#kontak" class="text-sage hover:text-navy font-medium transition duration-300">Kontak</a>
+                    <button class="btn-primary text-white font-medium py-2 px-6 rounded-lg">
+                        Hubungi Kami
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="text-sage hover:text-navy">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 gradient-subtle">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Content -->
+                <div class="fade-in">
+                    <div class="inline-block bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6">
+                        📚 Katalog Try Out CPNS Terlengkap
+                    </div>
+                    
+                    <h1 class="text-4xl lg:text-5xl font-bold text-navy mb-6 leading-tight">
+                        Try Out CPNS
+                        <span class="text-accent">Berkualitas</span>
+                        untuk Persiapan Optimal
+                    </h1>
+                    
+                    <p class="text-xl text-elegant mb-8">
+                        Kami menyediakan berbagai paket try out CPNS dengan simulasi CAT yang akurat, 
+                        bank soal terlengkap, dan sistem penilaian yang mendekati tes asli.
+                    </p>
+                    
+                    <!-- Key Points -->
+                    <div class="space-y-3 mb-8">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-elegant">Simulasi CAT yang mirip dengan tes asli</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-elegant">Berbagai pilihan paket sesuai kebutuhan</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-elegant">Harga terjangkau dengan kualitas terjamin</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-primary text-white font-medium py-3 px-8 rounded-lg">
+                            Lihat Katalog Try Out
+                        </button>
+                        <button class="bg-white border border-gray-300 text-navy hover:bg-gray-50 font-medium py-3 px-8 rounded-lg transition duration-300">
+                            Demo Try Out
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Illustration -->
+                <div class="fade-in">
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <svg viewBox="0 0 400 300" class="w-full">
+                            <!-- Background -->
+                            <rect width="400" height="300" fill="#f8fafc" rx="20"/>
+                            
+                            <!-- Multiple Screens representing different packages -->
+                            <rect x="60" y="60" width="80" height="60" rx="6" fill="#1e293b"/>
+                            <rect x="63" y="63" width="74" height="40" rx="3" fill="#2563eb"/>
+                            <text x="100" y="130" text-anchor="middle" fill="#6b7280" font-size="10">Basic</text>
+                            
+                            <rect x="160" y="50" width="80" height="60" rx="6" fill="#1e293b"/>
+                            <rect x="163" y="53" width="74" height="40" rx="3" fill="#10b981"/>
+                            <text x="200" y="120" text-anchor="middle" fill="#6b7280" font-size="10">Premium</text>
+                            
+                            <rect x="260" y="60" width="80" height="60" rx="6" fill="#1e293b"/>
+                            <rect x="263" y="63" width="74" height="40" rx="3" fill="#f59e0b"/>
+                            <text x="300" y="130" text-anchor="middle" fill="#6b7280" font-size="10">Ultimate</text>
+                            
+                            <!-- Central Figure -->
+                            <circle cx="200" cy="180" r="25" fill="#e2e8f0"/>
+                            <rect x="180" y="205" width="40" height="50" rx="8" fill="#2563eb"/>
+                            
+                            <!-- Success Elements -->
+                            <circle cx="320" cy="200" r="15" fill="#10b981" opacity="0.2"/>
+                            <path d="M313 200 L318 205 L327 193" stroke="#10b981" stroke-width="2" fill="none"/>
+                            
+                            <circle cx="80" cy="200" r="12" fill="#f59e0b" opacity="0.2"/>
+                            <polygon points="80,192 83,198 90,198 85,202 87,209 80,205 73,209 75,202 70,198 77,198" fill="#f59e0b"/>
+                            
+                            <!-- Bottom Text -->
+                            <text x="200" y="280" text-anchor="middle" fill="#6b7280" font-size="12" font-weight="500">
+                                Pilihan Try Out Terlengkap
+                            </text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="katalog" class="section-padding bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-navy mb-4">Katalog Try Out CPNS</h2>
+                <p class="text-xl text-elegant max-w-2xl mx-auto">
+                    Beragam pilihan paket try out yang disesuaikan dengan kebutuhan dan budget Anda
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Try Out Paket Hemat -->
+                <div class="product-card card-elegant rounded-2xl p-8 fade-in">
+                    <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
+                        Paket Hemat
+                    </div>
+                    <h3 class="text-2xl font-semibold text-navy mb-3">Try Out Basic</h3>
+                    <div class="text-3xl font-bold text-navy mb-4">Rp 75.000</div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            15 Try Out Premium
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Akses 30 hari
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Simulasi CAT Lengkap
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Pembahasan Detail
+                        </div>
+                    </div>
+                    
+                    <p class="text-elegant text-sm">
+                        Cocok untuk pemula yang ingin mencoba persiapan CPNS dengan budget terbatas.
+                    </p>
+                </div>
+
+                <!-- Try Out Paket Populer -->
+                <div class="product-card card-elegant rounded-2xl p-8 fade-in border-2 border-accent relative">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Terlaris</span>
+                    </div>
+                    <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block mt-2">
+                        Paket Populer
+                    </div>
+                    <h3 class="text-2xl font-semibold text-navy mb-3">Try Out Premium</h3>
+                    <div class="text-3xl font-bold text-navy mb-4">Rp 150.000</div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            40 Try Out Premium
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Akses 60 hari
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Bank Soal Tambahan
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Analisis Mendalam
+                        </div>
+                    </div>
+                    
+                    <p class="text-elegant text-sm">
+                        Pilihan terbaik untuk persiapan intensif dengan fitur lengkap dan harga terjangkau.
+                    </p>
+                </div>
+
+                <!-- Try Out Paket Lengkap -->
+                <div class="product-card card-elegant rounded-2xl p-8 fade-in">
+                    <div class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
+                        Paket Lengkap
+                    </div>
+                    <h3 class="text-2xl font-semibold text-navy mb-3">Try Out Ultimate</h3>
+                    <div class="text-3xl font-bold text-navy mb-4">Rp 250.000</div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Unlimited Try Out
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Akses 90 hari
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Try Out Prediksi 2024
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Priority Support
+                        </div>
+                    </div>
+                    
+                    <p class="text-elegant text-sm">
+                        Paket terlengkap untuk persiapan maksimal dengan akses unlimited dan fitur eksklusif.
+                    </p>
+                </div>
+
+                <!-- Try Out Khusus SKD -->
+                <div class="product-card card-elegant rounded-2xl p-8 fade-in">
+                    <div class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
+                        Khusus SKD
+                    </div>
+                    <h3 class="text-2xl font-semibold text-navy mb-3">Try Out SKD Intensif</h3>
+                    <div class="text-3xl font-bold text-navy mb-4">Rp 100.000</div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            25 Try Out SKD
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Fokus TWK, TIU, TKP
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Akses 45 hari
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Drill Soal Intensif
+                        </div>
+                    </div>
+                    
+                    <p class="text-elegant text-sm">
+                        Khusus untuk latihan SKD dengan fokus pada peningkatan skor TWK, TIU, dan TKP.
+                    </p>
+                </div>
+
+                <!-- Try Out PPPK -->
+                <div class="product-card card-elegant rounded-2xl p-8 fade-in">
+                    <div class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
+                        Khusus PPPK
+                    </div>
+                    <h3 class="text-2xl font-semibold text-navy mb-3">Try Out PPPK</h3>
+                    <div class="text-3xl font-bold text-navy mb-4">Rp 125.000</div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            30 Try Out PPPK
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Kompetensi Teknis & Manajerial
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Akses 60 hari
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Soal Sesuai Formasi
+                        </div>
+                    </div>
+                    
+                    <p class="text-elegant text-sm">
+                        Persiapan khusus untuk tes PPPK dengan soal kompetensi teknis dan manajerial.
+                    </p>
+                </div>
+
+                <!-- Try Out Paket Combo -->
+                <div class="product-card card-elegant rounded-2xl p-8 fade-in">
+                    <div class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
+                        Paket Combo
+                    </div>
+                    <h3 class="text-2xl font-semibold text-navy mb-3">Try Out CPNS + PPPK</h3>
+                    <div class="text-3xl font-bold text-navy mb-4">Rp 200.000</div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            35 Try Out CPNS + 25 PPPK
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Akses 75 hari
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Hemat Rp 50.000
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Bonus Materi Lengkap
+                        </div>
+                    </div>
+                    
+                    <p class="text-elegant text-sm">
+                        Paket hemat untuk persiapan CPNS dan PPPK sekaligus dengan harga spesial.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="text-center mt-12 fade-in">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-4xl mx-auto">
+                    <h4 class="font-semibold text-navy mb-3">Semua Paket Termasuk:</h4>
+                    <div class="grid md:grid-cols-3 gap-4 text-sm text-elegant">
+                        <div class="flex items-center justify-center">
+                            <svg class="w-4 h-4 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Simulasi CAT Akurat
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <svg class="w-4 h-4 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Pembahasan Detail
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <svg class="w-4 h-4 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Laporan Hasil Lengkap
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="fitur" class="section-padding gradient-subtle">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-navy mb-4">Mengapa Memilih Try Out Kami?</h2>
+                <p class="text-xl text-elegant max-w-2xl mx-auto">
+                    Keunggulan yang membuat try out kami menjadi pilihan terbaik untuk persiapan CPNS
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="card-elegant bg-white p-8 rounded-xl fade-in">
+                    <div class="bg-accent/10 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-navy mb-4">Simulasi CAT Akurat</h3>
+                    <p class="text-elegant">
+                        Interface dan sistem yang sangat mirip dengan CAT CPNS asli untuk pengalaman yang autentik
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card-elegant bg-white p-8 rounded-xl fade-in">
+                    <div class="bg-accent/10 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-navy mb-4">Harga Terjangkau</h3>
+                    <p class="text-elegant">
+                        Berbagai pilihan paket dengan harga yang kompetitif dan sesuai dengan budget Anda
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card-elegant bg-white p-8 rounded-xl fade-in">
+                    <div class="bg-accent/10 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-navy mb-4">Analisis Mendalam</h3>
+                    <p class="text-elegant">
+                        Laporan hasil yang detail dengan analisis per bidang dan rekomendasi belajar
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="card-elegant bg-white p-8 rounded-xl fade-in">
+                    <div class="bg-accent/10 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-navy mb-4">Akses Fleksibel</h3>
+                    <p class="text-elegant">
+                        Belajar kapan saja dan dimana saja sesuai dengan jadwal dan kenyamanan Anda
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="card-elegant bg-white p-8 rounded-xl fade-in">
+                    <div class="bg-accent/10 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-navy mb-4">Pembahasan Lengkap</h3>
+                    <p class="text-elegant">
+                        Setiap soal dilengkapi dengan pembahasan yang mudah dipahami dan tips praktis
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="card-elegant bg-white p-8 rounded-xl fade-in">
+                    <div class="bg-accent/10 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-navy mb-4">Update Berkala</h3>
+                    <p class="text-elegant">
+                        Soal dan materi selalu diperbarui mengikuti perkembangan terbaru tes CPNS
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding bg-navy">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 fade-in">
+            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">
+                Tertarik dengan Try Out Kami?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Hubungi kami untuk informasi lebih lanjut tentang paket try out yang sesuai dengan kebutuhan Anda.
+                Tim kami siap membantu memilihkan paket terbaik.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="btn-primary text-white font-medium py-3 px-8 rounded-lg">
+                    Hubungi via WhatsApp
+                </button>
+                <button class="bg-white/10 border border-white/20 text-white hover:bg-white/20 font-medium py-3 px-8 rounded-lg transition duration-300">
+                    Tanya Detail Paket
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak" class="bg-white py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="bg-navy text-white px-4 py-2 rounded-lg font-semibold text-lg mb-4 inline-block">
+                        CPNS Try Out
+                    </div>
+                    <p class="text-elegant mb-4">
+                        Menyediakan berbagai paket try out CPNS berkualitas dengan harga terjangkau untuk persiapan optimal.
+                    </p>
+                </div>
+
+                <!-- Catalog -->
+                <div>
+                    <h4 class="font-semibold text-navy mb-4">Katalog Try Out</h4>
+                    <ul class="space-y-2 text-elegant">
+                        <li><a href="#" class="hover:text-accent transition duration-300">Try Out Basic</a></li>
+                        <li><a href="#" class="hover:text-accent transition duration-300">Try Out Premium</a></li>
+                        <li><a href="#" class="hover:text-accent transition duration-300">Try Out Ultimate</a></li>
+                        <li><a href="#" class="hover:text-accent transition duration-300">Try Out PPPK</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-semibold text-navy mb-4">Kontak</h4>
+                    <div class="space-y-2 text-elegant">
+                        <p>📧 info@cpnstryout.com</p>
+                        <p>📱 +62 812-3456-7890</p>
+                        <p>🕒 Senin - Jumat, 09:00 - 17:00</p>
+                        <p>📍 Jakarta, Indonesia</p>
+                    </div>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-semibold text-navy mb-4">Bantuan</h4>
+                    <ul class="space-y-2 text-elegant">
+                        <li><a href="#" class="hover:text-accent transition duration-300">Cara Pemesanan</a></li>
+                        <li><a href="#" class="hover:text-accent transition duration-300">Panduan Pembayaran</a></li>
+                        <li><a href="#" class="hover:text-accent transition duration-300">FAQ</a></li>
+                        <li><a href="#" class="hover:text-accent transition duration-300">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 mt-8 pt-8 text-center text-elegant">
+                <p>&copy; 2024 CPNS Try Out. Semua hak dilindungi undang-undang.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Button click handlers
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (this.textContent.includes('Hubungi Kami') || this.textContent.includes('Hubungi via WhatsApp')) {
+                    alert('Anda akan diarahkan ke WhatsApp untuk konsultasi langsung dengan tim kami. Kami siap membantu memilihkan paket try out yang sesuai!');
+                } else if (this.textContent.includes('Lihat Katalog')) {
+                    document.querySelector('#katalog').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                } else if (this.textContent.includes('Demo Try Out')) {
+                    alert('Demo try out akan menampilkan simulasi CAT lengkap dengan contoh soal TWK, TIU, dan TKP beserta pembahasannya.');
+                } else if (this.textContent.includes('Tanya Detail Paket')) {
+                    alert('Tim customer service kami akan memberikan penjelasan detail tentang setiap paket try out dan membantu Anda memilih yang terbaik.');
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98923545431f81c2',t:'MTc1OTU1NDk5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

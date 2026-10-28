@@ -1,0 +1,82 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import 'primeicons/primeicons.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ── Background ── */
+  --color-tryout-bg:       #f0f4ff;
+  --color-tryout-surface:  #ffffff;
+  --color-tryout-navbar:   #1e3a5f;
+  --color-tryout-sidebar:  #ffffff;
+  --color-tryout-input:    #ffffff;
+  --color-tryout-navbar-text: #ffffff;
+
+  /* ── Border ── */
+  --color-tryout-border:   #c7d7f5;
+  --color-tryout-divider:  #e2e8f0;
+
+  /* ── Text ── */
+  --color-tryout-text:     #1e293b;
+  --color-tryout-muted:    #64748b;
+  --color-tryout-subtle:   #94a3b8;
+
+  /* ── Accent ── */
+  --color-tryout-primary:  #3b82f6;
+  --color-tryout-accent:   #f59e0b;
+
+  /* ── Surface khusus ── */
+  --color-tryout-hover:    #f1f5f9;
+  --color-tryout-skeleton: #e2e8f0;
+}
+
+.dark {
+  /* ── Background ── */
+  --color-tryout-bg:       #0f172a;
+  --color-tryout-surface:  #1e293b;
+  --color-tryout-navbar:   #1e293b;
+  --color-tryout-sidebar:  #1e293b;
+  --color-tryout-input:    #0f172a; /* Dibuat sedikit lebih gelap dari surface agar input menonjol */
+
+  /* ── Border ── */
+  --color-tryout-border:   #334155;
+  --color-tryout-divider:  #334155;
+
+  /* ── Text ── */
+  --color-tryout-text:     #e2e8f0;
+  --color-tryout-muted:    #94a3b8;
+  --color-tryout-subtle:   #64748b;
+
+  /* ── Surface khusus ── */
+  --color-tryout-hover:    #334155;
+  --color-tryout-skeleton: #334155;
+
+  --color-tryout-navbar-text: #e2e8f0;
+}
+
+/* ============================================================
+   ✅ GLOBAL FORM FIX: Memaksa semua input patuh pada Semantic Token
+   Ini akan memperbaiki bug teks abu-putih yang tidak terbaca!
+   ============================================================ */
+@layer base {
+  input, textarea, select {
+    background-color: var(--color-tryout-input) !important;
+    color: var(--color-tryout-text) !important;
+    border-color: var(--color-tryout-border) !important;
+  }
+  
+  input::placeholder, textarea::placeholder {
+    color: var(--color-tryout-subtle) !important;
+    opacity: 1;
+  }
+
+  /* Mengatasi auto-fill dari browser yang kadang warnanya putih */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active{
+      -webkit-box-shadow: 0 0 0 30px var(--color-tryout-input) inset !important;
+      -webkit-text-fill-color: var(--color-tryout-text) !important;
+  }
+}

@@ -1,0 +1,608 @@
+<script setup>
+import { computed } from 'vue'
+
+// Layout dan SEO Meta
+definePageMeta({
+  layout: 'landing'
+})
+
+// ✨ TAMBAHAN SEO: Metadata untuk Landing Page Utama ✨
+useSeoMeta({
+  title: 'Tryout CPNS 2026 Terlengkap & Simulasi CAT BKN',
+  description: 'Persiapkan dirimu untuk tes CPNS 2026. Tersedia ratusan bank soal SKD & SKB lengkap dengan simulasi CAT BKN, timer, dan pembahasan instan.',
+})
+
+const { $api } = useNuxtApp()
+
+// Stats Data
+const stats = [
+  { number: '10+', label: 'Paket Tryout', icon: '📚' },
+  { number: '10+', label: 'Bank Soal', icon: '🎯' },
+  { number: '10+', label: 'Formasi SKB', icon: '💼' },
+  { number: '24/7', label: 'Akses Online', icon: '⚡' }
+]
+
+// ✅ FETCH DATA POSISI (FORMASI) DARI API
+const { data: positionsResponse } = await useAsyncData('positions-landing', () =>
+  $api('/api/v1/positions')
+)
+
+// ✅ Format data dari API dengan 1 icon standar
+const rawFormasi = computed(() => {
+  const positions = positionsResponse.value?.data || []
+  return positions.map(pos => ({
+    name: pos.title,
+    icon: '💼' // Satu icon seragam untuk semua posisi
+  }))
+})
+
+// ✅ BAGI DUA DATA FORMASI UNTUK 2 MARQUEE
+const formasiBarisAtas = computed(() => {
+  const half = Math.ceil(rawFormasi.value.length / 2)
+  return rawFormasi.value.slice(0, half)
+})
+
+const formasiBarisBawah = computed(() => {
+  const half = Math.ceil(rawFormasi.value.length / 2)
+  return rawFormasi.value.slice(half)
+})
+
+// Features dengan Warna Playful
+const features = [
+  {
+    icon: '💻',
+    title: 'Simulasi CAT',
+    description: 'Tampilan, timer, dan sistem penilaian dibuat mirip dengan ujian CAT BKN sebenarnya.',
+    bgColor: 'bg-blue-50 hover:bg-blue-100',
+    iconColor: 'text-blue-600 bg-blue-100'
+  },
+  {
+    icon: '🏆',
+    title: 'Ranking Nasional',
+    description: 'Ketahui posisimu di antara ribuan pejuang CPNS lainnya se-Indonesia secara langsung.',
+    bgColor: 'bg-orange-50 hover:bg-orange-100',
+    iconColor: 'text-orange-600 bg-orange-100'
+  },
+  {
+    icon: '💡',
+    title: 'Pembahasan Setiap Soal',
+    description: 'Setiap soal dilengkapi dengan penjelasan untuk membantu Anda memahami materi dengan lebih baik.',
+    bgColor: 'bg-emerald-50 hover:bg-emerald-100',
+    iconColor: 'text-emerald-600 bg-emerald-100'
+  },
+  {
+    icon: '📱',
+    title: 'Akses Fleksibel',
+    description: 'Kerjakan simulasi tryout kapan saja dan di mana saja. Platform kami dapat diakses lewat komputer maupun HP.',
+    bgColor: 'bg-purple-50 hover:bg-purple-100',
+    iconColor: 'text-purple-600 bg-purple-100'
+  }
+]
+
+// CPNS Exam Types
+const cpnsTypes = [
+  {
+    title: 'SKD',
+    subtitle: 'Seleksi Kompetensi Dasar',
+    description: 'Tryout lengkap TWK, TIU, dan TKP sesuai passing grade BKN terbaru.',
+    image: '📋',
+    features: ['110 Soal (100 Menit)', 'Passing Grade 2026', 'Pembahasan Soal'],
+    color: 'from-blue-600 to-indigo-600'
+  },
+  {
+    title: 'SKB',
+    subtitle: 'Seleksi Kompetensi Bidang',
+    description: 'Soal khusus sesuai formasi jabatan yang kamu lamar (10+ formasi).',
+    image: '🎯',
+    features: ['10+ Formasi Tersedia', 'Soal Spesifik Jabatan', 'Materi Teknis'],
+    color: 'from-orange-500 to-red-500'
+  }
+]
+
+// FAQ
+const faqs = [
+  { 
+    question: 'Apakah soal tryout sesuai dengan standar tes CPNS?', 
+    answer: 'Ya, soal disusun dan disesuaikan dengan pedoman kisi-kisi resmi dari Kemenpan-RB.' 
+  },
+  { 
+    question: 'Bagaimana cara mengakses paket yang sudah dibeli?', 
+    answer: 'Setelah pembayaran otomatis terverifikasi, paket akan langsung aktif di akun Anda. Anda bisa langsung mengerjakannya kapan saja melalui HP maupun Laptop.' 
+  },
+  { 
+    question: 'Apakah ada batasan waktu atau jumlah mengulang tryout?', 
+    answer: 'Anda dapat mengulang pengerjaan tryout pada paket yang telah dibeli berkali-kali untuk melatih kecepatan dan mengevaluasi perkembangan nilai Anda.' 
+  },
+]
+</script>
+
+<template>
+  <div class="min-h-screen bg-white font-sans overflow-hidden selection:bg-orange-200">
+
+    <section class="relative bg-[#0A192F] pt-24 pb-32 lg:pt-32 lg:pb-40 overflow-hidden">
+      <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-blue-600/40 rounded-full blur-[120px]">
+      </div>
+      <div
+        class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[500px] h-[500px] bg-orange-500/30 rounded-full blur-[100px]">
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+
+          <div class="text-center lg:text-left">
+            <div
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-orange-400 font-bold text-sm mb-6">
+              <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+              Persiapan Tes CPNS 2026
+            </div>
+
+            <h1 class="text-5xl sm:text-6xl lg:text-[4.5rem] font-extrabold text-white leading-[1.1] mb-6">
+              Lulus CPNS <br />
+              Bukan Lagi <br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-300">
+                Sekedar Mimpi.
+              </span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-blue-100 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              Persiapkan dirimu dengan perbanyak latihan Tryout Kumpulan soal dibuat untuk membantu anda dalam persiapan
+              ujian
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <NuxtLink to="/paket"
+                class="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-400 text-white font-bold rounded-2xl hover:scale-105 hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.5)] transition-all flex items-center justify-center gap-2 text-lg">
+                Mulai Latihan Sekarang
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </NuxtLink>
+            </div>
+          </div>
+
+          <div class="relative hidden lg:block h-[500px]">
+            <div
+              class="absolute right-10 top-10 w-72 bg-white rounded-3xl p-6 shadow-2xl animate-float-delayed z-20 border-b-4 border-blue-500 transform rotate-3">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-2xl">👩‍🎓</div>
+                <div>
+                  <div class="text-sm text-gray-500 font-bold">Skor SKD Terakhir</div>
+                  <div class="text-2xl font-extrabold text-gray-900">455<span class="text-sm text-gray-500">/550</span>
+                  </div>
+                </div>
+              </div>
+              <div class="w-full bg-gray-100 rounded-full h-3 mb-2">
+                <div class="bg-gradient-to-r from-green-400 to-green-500 h-3 rounded-full" style="width: 85%"></div>
+              </div>
+              <div class="text-xs font-bold text-green-600 text-right">Lulus Passing Grade! 🎉</div>
+            </div>
+
+            <div
+              class="absolute left-10 bottom-20 w-64 bg-gradient-to-br from-orange-500 to-red-500 rounded-3xl p-6 shadow-2xl animate-float z-30 text-white transform -rotate-3">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold">Ranking Nasional</span>
+                <span class="text-3xl">🏆</span>
+              </div>
+              <div class="text-5xl font-extrabold mb-1">#14</div>
+              <div class="text-sm font-medium text-orange-100">dari 10,432 peserta</div>
+            </div>
+
+            <div class="absolute top-0 left-20 text-6xl animate-bounce-slow opacity-80">💯</div>
+            <div class="absolute bottom-10 right-20 text-5xl animate-bounce-slow opacity-80"
+              style="animation-delay: 1s;">🎯</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M0 120L60 105C120 90 240 60 360 55C480 50 600 70 720 75C840 80 960 70 1080 55C1200 40 1320 20 1380 10L1440 0V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+            fill="#ffffff" />
+        </svg>
+      </div>
+    </section>
+<!-- 
+    <section class="bg-white py-10 relative z-20 -mt-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+          <div v-for="stat in stats" :key="stat.label"
+            class="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors">
+            <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-2xl flex-shrink-0">
+              {{ stat.icon }}
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-gray-900">{{ stat.number }}</div>
+              <div class="text-sm font-bold text-gray-500 uppercase">{{ stat.label }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Apa yang Anda Dapatkan</h2>
+          <p class="text-lg text-gray-600">Fitur dan fasilitas unggulan yang dirancang khusus untuk memaksimalkan
+            persiapan Anda.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+          <div v-for="(feature, idx) in features" :key="idx"
+            class="rounded-3xl p-8 transition-all duration-300 transform hover:-translate-y-2 cursor-pointer border border-transparent hover:border-gray-100"
+            :class="feature.bgColor">
+            <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm"
+              :class="feature.iconColor">
+              {{ feature.icon }}
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">{{ feature.title }}</h3>
+            <p class="text-gray-700 font-medium leading-relaxed">{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="py-16 bg-[#0A192F] relative overflow-hidden">
+  <!-- glow tunggal, konsisten sama gaya blob di Hero & Marquee -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-blue-500/20 blur-[100px] rounded-full pointer-events-none"></div>
+
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <div class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-5">
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-400"></span>
+      </span>
+      <span class="text-blue-200 font-bold text-sm tracking-wide">Powered by Artificial Intelligence</span>
+    </div>
+
+    <p class="text-white text-xl sm:text-2xl font-semibold leading-snug">
+      Soal tryout disusun dengan bantuan
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Artificial Intelligence (AI)</span>
+      
+    </p>
+  </div>
+</section>
+
+    <section class="py-24 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Pilih Jenis Tryout</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div v-for="type in cpnsTypes" :key="type.title"
+            class="bg-white rounded-[2rem] p-2 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <div class="rounded-[1.5rem] p-8 h-full bg-gradient-to-br text-white relative overflow-hidden"
+              :class="type.color">
+              <div class="absolute -right-10 -top-10 text-9xl opacity-20 transform rotate-12">{{ type.image }}</div>
+
+              <div class="relative z-10">
+                <div class="text-5xl mb-4">{{ type.image }}</div>
+                <h3 class="text-4xl font-extrabold mb-1">{{ type.title }}</h3>
+                <p class="font-bold text-white/80 mb-6 uppercase tracking-wider text-sm">{{ type.subtitle }}</p>
+                <p class="text-white/90 mb-8 font-medium leading-relaxed">{{ type.description }}</p>
+
+                <ul class="space-y-3">
+                  <li v-for="feature in type.features" :key="feature" class="flex items-center gap-3 font-bold">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {{ feature }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section v-if="rawFormasi.length > 0" class="py-24 relative overflow-hidden bg-[#050D1A] border-y border-white/5">
+      <div
+        class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwaDIwdjIwSDIwdi0yMHpNMCAyMGgyMHYyMEgwdi0yMHoiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMikiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==')] opacity-30">
+      </div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-blue-500/20 blur-[120px] rounded-full pointer-events-none">
+      </div>
+
+      <div
+        class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#050D1A] to-transparent z-10 pointer-events-none">
+      </div>
+      <div
+        class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#050D1A] to-transparent z-10 pointer-events-none">
+      </div>
+
+      <div class="text-center mb-12 relative z-20">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+          Pilihan <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Formasi
+            SKB</span> Tersedia
+        </h2>
+        <p class="text-slate-400 font-medium text-lg">Temukan paket tryout spesifik untuk jabatan yang kamu lamar.</p>
+      </div>
+
+      <!-- ✨ TAMBAHAN SEO: Div formasi diubah jadi NuxtLink mengarah ke halaman SEO ✨ -->
+      <div class="flex flex-col gap-8 relative z-20">
+        <div class="flex animate-marquee hover:pause">
+          <div class="flex gap-6 px-3" v-for="i in 2" :key="`atas-${i}`">
+            <NuxtLink :to="`/formasi/${generateSlug(item.name)}`" v-for="(item, index) in formasiBarisAtas" :key="`formasi-atas-${index}`"
+              class="group flex-shrink-0 px-8 py-5 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-blue-400/50 hover:bg-white/10 transition-all duration-300 flex items-center gap-4 min-w-max shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(59,130,246,0.2)] hover:-translate-y-1 cursor-pointer">
+              <div
+                class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center border border-white/10 group-hover:scale-110 transition-transform duration-300">
+                <span class="text-3xl">{{ item.icon }}</span>
+              </div>
+              <span
+                class="text-white font-bold tracking-wide capitalize text-xl group-hover:text-blue-300 transition-colors">{{
+                item.name }}</span>
+            </NuxtLink>
+          </div>
+        </div>
+
+        <div v-if="formasiBarisBawah.length > 0" class="flex animate-marquee-reverse hover:pause">
+          <div class="flex gap-6 px-3" v-for="i in 2" :key="`bawah-${i}`">
+            <NuxtLink :to="`/formasi/${generateSlug(item.name)}`" v-for="(item, index) in formasiBarisBawah" :key="`formasi-bawah-${index}`"
+              class="group flex-shrink-0 px-8 py-5 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-emerald-400/50 hover:bg-white/10 transition-all duration-300 flex items-center gap-4 min-w-max shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(16,185,129,0.2)] hover:-translate-y-1 cursor-pointer">
+              <div
+                class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center border border-white/10 group-hover:scale-110 transition-transform duration-300">
+                <span class="text-3xl">{{ item.icon }}</span>
+              </div>
+              <span
+                class="text-white font-bold tracking-wide capitalize text-xl group-hover:text-emerald-300 transition-colors">{{
+                item.name }}</span>
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="py-24 bg-gray-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Harga Tryout</h2>
+      <p class="text-lg text-gray-600">Coba SKD gratis dulu, lanjut ke SKB sesuai formasi yang kamu lamar.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- SKD: Gratis -->
+      <div class="rounded-[2rem] p-8 border-2 border-emerald-200 bg-emerald-50 flex flex-col">
+        <span class="text-xs font-black tracking-widest uppercase text-emerald-600 mb-4">Tryout SKD</span>
+        <div class="mb-4">
+          <span class="text-5xl font-extrabold text-gray-900">Gratis</span>
+        </div>
+        <p class="text-gray-600 font-medium leading-relaxed mb-8 flex-1">
+          Latihan lengkap TWK, TIU, dan TKP. Coba sepuasnya tanpa biaya sebelum lanjut ke tahap SKB.
+        </p>
+        <NuxtLink to="/auth/sign-up"
+          class="block w-full text-center py-4 rounded-xl font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors">
+          Coba Gratis Sekarang
+        </NuxtLink>
+      </div>
+
+      <!-- SKB: harga tidak ditampilkan di sini, arahkan ke halaman Paket -->
+      <div class="rounded-[2rem] p-8 border-2 border-gray-200 bg-gray-50 flex flex-col">
+        <span class="text-xs font-black tracking-widest uppercase text-orange-600 mb-4">Tryout SKB</span>
+        <div class="mb-4">
+          <span class="text-3xl font-extrabold text-gray-900">Sesuai Formasi</span>
+        </div>
+        <p class="text-gray-600 font-medium leading-relaxed mb-8 flex-1">
+          Harga bervariasi tergantung formasi jabatan yang kamu lamar. Cek daftar lengkap dan harga tiap paket di halaman Paket.
+        </p>
+        <NuxtLink to="/paket"
+          class="block w-full text-center py-4 rounded-xl font-bold bg-gray-900 text-white hover:bg-gray-800 transition-colors">
+          Lihat Semua Paket SKB
+        </NuxtLink>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Cara Memulai Latihan</h2>
+          <p class="text-lg text-gray-600">Hanya butuh 3 langkah mudah untuk mulai mengukur kemampuanmu.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto relative">
+          <div class="hidden md:block absolute top-12 left-[20%] right-[20%] h-0.5 bg-gray-200 z-0"></div>
+
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <div
+              class="w-24 h-24 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-4xl font-black mb-6 border-4 border-white shadow-lg">
+              1
+            </div>
+            <h3 class="text-xl font-extrabold text-gray-900 mb-3">Pilih Paket</h3>
+            <p class="text-gray-600 font-medium leading-relaxed">
+              Cari dan pilih paket Tryout SKD atau SKB sesuai dengan formasi yang ingin kamu lamar.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <div
+              class="w-24 h-24 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-4xl font-black mb-6 border-4 border-white shadow-lg">
+              2
+            </div>
+            <h3 class="text-xl font-extrabold text-gray-900 mb-3">Kerjakan Simulasi</h3>
+            <p class="text-gray-600 font-medium leading-relaxed">
+              Kerjakan soal dengan sistem CAT yang dilengkapi timer, mirip dengan ujian aslinya.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <div
+              class="w-24 h-24 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-4xl font-black mb-6 border-4 border-white shadow-lg">
+              3
+            </div>
+            <h3 class="text-xl font-extrabold text-gray-900 mb-3">Evaluasi Hasil</h3>
+            <p class="text-gray-600 font-medium leading-relaxed">
+              Lihat skor akhir, pelajari pembahasan, dan cek posisimu di ranking nasional.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-16 text-center">
+          <NuxtLink to="/paket"
+            class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-2xl hover:bg-gray-800 hover:-translate-y-1 transition-all shadow-lg">
+            Lihat Daftar Paket Tryout
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-24 bg-gray-50">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Ada Pertanyaan? 🤔</h2>
+        </div>
+
+        <div class="space-y-4">
+          <details v-for="(faq, i) in faqs" :key="i"
+            class="group bg-white rounded-2xl shadow-sm border border-gray-100 [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex justify-between items-center cursor-pointer p-6 font-bold text-gray-900 text-lg">
+              {{ faq.question }}
+              <span
+                class="transition-transform duration-300 group-open:rotate-180 bg-blue-50 text-blue-600 p-2 rounded-full">
+                <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="3" viewBox="0 0 24 24" width="24">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </span>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600 font-medium leading-relaxed">
+              {{ faq.answer }}
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+      <div
+        class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-[3rem] p-10 sm:p-16 text-center relative overflow-hidden shadow-2xl">
+        <div
+          class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMWgydjJIMXoiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4xKSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+')] opacity-30">
+        </div>
+
+        <h2 class="relative z-10 text-4xl sm:text-5xl font-extrabold text-white mb-6 leading-tight">
+          Ribuan Pesaingmu Sudah <br class="hidden sm:block" /> Curi Start Belajar.
+        </h2>
+        <p class="relative z-10 text-xl text-blue-100 mb-10 max-w-2xl mx-auto font-medium">
+          Jangan sampai menyesal pas hari H. Daftar sekarang, latihan tiap hari, dan amankan posisimu!
+        </p>
+
+        <div class="relative z-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <NuxtLink to="/auth/sign-up"
+            class="px-10 py-5 bg-orange-500 text-white font-extrabold text-lg rounded-2xl hover:scale-105 transition-all shadow-[0_0_30px_-5px_rgba(249,115,22,0.6)]">
+            Daftar Gratis Sekarang 🚀
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</template>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+.font-sans {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ✅ Animasi Super Lambat (240s / 4 Menit) */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 420s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 420s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.pause {
+  animation-play-state: paused;
+}
+
+/* Floating Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(-3deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(-3deg);
+  }
+}
+
+@keyframes float-delayed {
+  0% {
+    transform: translateY(0px) rotate(3deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(3deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(3deg);
+  }
+}
+
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 6s ease-in-out 3s infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+/* Hide Details Marker */
+details>summary {
+  list-style: none;
+}
+</style>
