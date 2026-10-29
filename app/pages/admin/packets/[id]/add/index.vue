@@ -323,6 +323,7 @@ const formatPrice = (price) => {
               <th class="px-6 py-4 text-left text-xs font-bold text-tryout-text uppercase tracking-wider w-full min-w-[250px]">Title</th>
               <th class="px-6 py-4 text-left text-xs font-bold text-tryout-text uppercase tracking-wider whitespace-nowrap">Position</th>
               <th class="px-6 py-4 text-left text-xs font-bold text-tryout-text uppercase tracking-wider whitespace-nowrap">Sub Category</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-tryout-text uppercase tracking-wider whitespace-nowrap">Duration</th>
               <th class="px-6 py-4 text-left text-xs font-bold text-tryout-text uppercase tracking-wider whitespace-nowrap">Price</th>
             </tr>
           </thead>
@@ -369,6 +370,7 @@ const formatPrice = (price) => {
                 </span>
               </td>
               <td class="px-6 py-4 text-sm text-tryout-text whitespace-nowrap">{{ questionBank.subCategoryTitle || '-' }}</td>
+                            <td class="px-6 py-4 text-sm text-tryout-text whitespace-nowrap">{{ questionBank.duration || '0' }}</td>
               <td class="px-6 py-4 text-sm text-tryout-text font-bold whitespace-nowrap">{{ formatPrice(questionBank.price) }}</td>
             </tr>
           </tbody>
