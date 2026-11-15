@@ -51,6 +51,9 @@ const explanations = computed(() => sortQuestions(response.value?.data || []))
 
 const questionBankId = computed(() => explanations.value[0]?.questionBankId || '')
 
+const hasImageOptions = computed(() =>
+  optionLetters.some(letter => isOptionImage(currentQuestion.value, letter))
+)
 // ==========================================
 // LOGIKA UX ESTAFET
 // ==========================================
@@ -419,10 +422,11 @@ const finishReview = () => {
       </div>
     </header>
 
-    <!-- <div class="max-w-7xl mx-auto w-full flex-1 flex gap-6 p-4 sm:p-6 lg:p-8 pb-40 lg:pb-8 relative"> -->
-      <div class="flex">
-      <div
-        class="flex-1 bg-tryout-surface  shadow-sm border border-tryout-border p-5 sm:p-8 flex flex-col h-fit">
+    <div class="flex">
+      <!-- ================= KARTU SOAL ================= -->
+      <div class="flex-1 min-w-0 bg-tryout-surface shadow-sm border border-tryout-border p-5 sm:p-8 flex flex-col h-fit">
+
+        <!-- Header kartu -->
         <div class="flex items-center justify-between mb-6 pb-4 border-b border-tryout-border">
           <div class="flex items-center gap-3">
             <span class="bg-tryout-primary text-white px-3 py-1 rounded-lg font-bold text-sm shadow-sm">
@@ -469,59 +473,68 @@ const finishReview = () => {
           </div>
         </div>
 
+        <!-- Gambar soal / teks soal -->
         <div class="mb-8 overflow-hidden text-tryout-text text-base sm:text-lg leading-relaxed">
           <img v-if="isQuestionImage(currentQuestion)" :src="getImageUrl(currentQuestion.questionImage)" alt="Soal"
-            class="max-w-full max-h-[50vh] object-contain rounded-xl border border-tryout-border mx-auto"
+            class="max-w-full max-h-[600px] w-auto h-auto object-contain rounded-xl border border-tryout-border mx-auto"
             @error="(e) => e.target.style.display = 'none'" />
 
           <div v-else-if="currentQuestion?.questionText" v-html="currentQuestion.questionText"></div>
         </div>
 
-        <div class="space-y-3 mb-8">
+        <!-- ================= OPSI JAWABAN (SATU BLOK SAJA) ================= -->
+        <div :class="hasImageOptions
+          ? 'grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-5 gap-3 mb-8'
+          : 'space-y-3 mb-8'">
           <div v-for="letter in optionLetters" :key="letter" v-show="hasOption(currentQuestion, letter)"
-            class="group flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-4 rounded-xl border-2 transition-all duration-200"
+            class="rounded-xl border-2 p-4 min-w-0 transition-all duration-200"
             :class="getOptionClass(currentQuestion, letter)">
-            <div class="flex items-start gap-3 flex-1 w-full overflow-hidden">
+
+            <!-- Baris atas: huruf + teks opsi + badge -->
+            <div class="flex items-center gap-2 flex-wrap" :class="hasImageOptions ? 'mb-3' : ''">
               <div
-                class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 mt-0.5 rounded-full border-2 flex items-center justify-center font-bold text-xs sm:text-sm transition-colors"
+                class="flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center font-bold text-xs sm:text-sm"
                 :class="getOptionBadgeClass(currentQuestion, letter)">
                 {{ letter }}
               </div>
 
-              <div class="flex-1 text-tryout-text font-medium mt-1 sm:mt-0.5">
-                <img v-if="isOptionImage(currentQuestion, letter)"
-                  :src="getImageUrl(currentQuestion?.[`imageOption${letter}`])" alt="Opsi"
-                  class="max-w-full max-h-40 object-contain rounded-lg border border-tryout-border"
-                  @error="(e) => e.target.style.display = 'none'" />
+              <span v-if="!isOptionImage(currentQuestion, letter)"
+                class="flex-1 min-w-0 font-medium text-tryout-text break-words">
+                {{ currentQuestion?.[`option${letter}`] }}
+              </span>
 
-                <span v-else class="block break-words">
-                  {{ currentQuestion?.[`option${letter}`] }}
+              <div class="flex flex-wrap gap-2 ml-auto">
+                <span
+                  v-if="!isScaledQuestion(currentQuestion) && isCorrectOption(currentQuestion, getOptionValue(currentQuestion, letter))"
+                  class="text-[10px] sm:text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20 whitespace-nowrap">
+                  Kunci
+                </span>
+
+                <span v-if="isScaledQuestion(currentQuestion) && isMaxScoreOption(currentQuestion, letter)"
+                  class="text-[10px] sm:text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20 whitespace-nowrap">
+                  Poin Tertinggi
+                </span>
+
+                <span v-if="isUserOption(currentQuestion, letter)"
+                  class="text-[10px] sm:text-xs font-bold px-2 py-1 rounded border whitespace-nowrap"
+                  :class="(!isScaledQuestion(currentQuestion) && isCorrectOption(currentQuestion, getOptionValue(currentQuestion, letter))) || (isScaledQuestion(currentQuestion) && isMaxScoreOption(currentQuestion, letter))
+                    ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-500/20 border-emerald-500/30'
+                    : 'text-red-600 dark:text-red-400 bg-red-500/10 border-red-500/20'">
+                  Jawaban Anda
                 </span>
               </div>
             </div>
 
-            <div class="flex flex-row sm:flex-col flex-wrap items-start sm:items-end gap-2 ml-9 sm:ml-0 flex-shrink-0">
-              <span
-                v-if="!isScaledQuestion(currentQuestion) && isCorrectOption(currentQuestion, getOptionValue(currentQuestion, letter))"
-                class="text-[10px] sm:text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded shadow-sm border border-emerald-500/20 whitespace-nowrap">
-                Kunci Jawaban
-              </span>
-
-              <span v-if="isScaledQuestion(currentQuestion) && isMaxScoreOption(currentQuestion, letter)"
-                class="text-[10px] sm:text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded shadow-sm border border-emerald-500/20 whitespace-nowrap">
-                Poin Tertinggi
-              </span>
-
-              <span v-if="isUserOption(currentQuestion, letter)"
-                class="text-[10px] sm:text-xs font-bold whitespace-nowrap px-2 py-1 rounded shadow-sm border" :class="(!isScaledQuestion(currentQuestion) && isCorrectOption(currentQuestion, getOptionValue(currentQuestion, letter))) || (isScaledQuestion(currentQuestion) && isMaxScoreOption(currentQuestion, letter))
-                  ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-500/20 border-emerald-500/30'
-                  : 'text-red-600 dark:text-red-400 bg-red-500/10 border-red-500/20'">
-                Jawaban Anda: {{ currentQuestion.selectedOptionKey }}
-              </span>
-            </div>
+            <!-- Opsi gambar -->
+            <img v-if="isOptionImage(currentQuestion, letter)"
+              :src="getImageUrl(currentQuestion?.[`imageOption${letter}`])" alt="Opsi"
+              class="w-full object-contain rounded-lg border border-tryout-border bg-white"
+              :class="hasImageOptions ? 'h-[170px]' : 'max-h-40 mt-3'"
+              @error="(e) => e.target.style.display = 'none'" />
           </div>
         </div>
 
+        <!-- ================= PENJELASAN DETAIL ================= -->
         <div v-if="currentQuestion?.explanation || isValidImageUrl(currentQuestion?.explanationImage)"
           class="bg-tryout-bg border border-tryout-border rounded-xl p-5 sm:p-6 mt-4 shadow-sm">
           <h4 class="font-bold text-tryout-primary flex items-center gap-2 mb-4">
@@ -532,18 +545,20 @@ const finishReview = () => {
             Penjelasan Detail
           </h4>
 
-          <div class="flex flex-col md:flex-row items-start gap-6">
+          <!-- Gambar penjelasan (ukuran sama dengan gambar soal) + teks di bawahnya -->
+          <div class="flex flex-col gap-5">
             <img v-if="isValidImageUrl(currentQuestion?.explanationImage)"
               :src="getImageUrl(currentQuestion.explanationImage)" alt="Penjelasan"
-              class="max-w-full md:max-w-xs max-h-[300px] object-contain rounded-lg border border-tryout-border bg-tryout-surface shadow-sm"
+              class="max-w-full max-h-[600px] w-auto h-auto object-contain rounded-xl border border-tryout-border bg-white mx-auto"
               @error="(e) => e.target.style.display = 'none'" />
 
             <div v-if="currentQuestion?.explanation"
-              class="flex-1 text-tryout-text leading-relaxed text-[15px] sm:text-base whitespace-pre-line font-medium">
+              class="text-tryout-text leading-relaxed text-[15px] sm:text-base whitespace-pre-line font-medium">
               {{ currentQuestion.explanation }}
             </div>
           </div>
 
+          <!-- Bobot poin (soal skala/TKP) -->
           <div v-if="isScaledQuestion(currentQuestion)" class="mt-6 pt-5 border-t border-tryout-border">
             <h5 class="text-xs font-bold text-tryout-primary uppercase tracking-widest mb-3 flex items-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -556,15 +571,17 @@ const finishReview = () => {
             <div class="flex flex-wrap gap-3">
               <div v-for="option in getScoreOptions(currentQuestion)" :key="`score-${option.letter}`"
                 class="flex items-center bg-tryout-surface rounded-lg border border-tryout-border shadow-sm overflow-hidden min-w-[70px]">
-                <div class="px-3 py-1.5 font-black text-sm text-tryout-text border-r border-tryout-border" :class="option.score === getMaxScore(currentQuestion)
-                  ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
-                  : 'bg-tryout-bg'">
+                <div class="px-3 py-1.5 font-black text-sm text-tryout-text border-r border-tryout-border"
+                  :class="option.score === getMaxScore(currentQuestion)
+                    ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
+                    : 'bg-tryout-bg'">
                   {{ option.letter }}
                 </div>
 
-                <div class="px-3 py-1.5 text-sm font-bold flex-1 text-center" :class="option.score === getMaxScore(currentQuestion)
-                  ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
-                  : 'text-tryout-primary'">
+                <div class="px-3 py-1.5 text-sm font-bold flex-1 text-center"
+                  :class="option.score === getMaxScore(currentQuestion)
+                    ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
+                    : 'text-tryout-primary'">
                   {{ option.score }}
                 </div>
               </div>
@@ -573,8 +590,9 @@ const finishReview = () => {
         </div>
       </div>
 
+      <!-- ================= PETA SOAL (DESKTOP) ================= -->
       <div
-        class="hidden lg:flex flex-col w-80 bg-tryout-sidebar  shadow-sm border border-tryout-border h-[calc(100vh-8rem)] sticky top-24">
+        class="hidden lg:flex flex-col w-80 shrink-0 bg-tryout-sidebar shadow-sm border border-tryout-border h-[calc(100vh-8rem)] sticky top-24">
         <div class="p-6 border-b border-tryout-border bg-tryout-bg/50">
           <h3 class="font-bold text-tryout-text flex items-center gap-2">
             <svg class="w-5 h-5 text-tryout-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -598,6 +616,7 @@ const finishReview = () => {
       </div>
     </div>
 
+    <!-- ================= NAVIGASI MOBILE ================= -->
     <div
       class="lg:hidden fixed bottom-0 left-0 right-0 bg-tryout-surface border-t border-tryout-border p-3 pb-safe z-30 shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.1)]">
       <div class="flex items-center justify-between gap-2">
@@ -639,6 +658,7 @@ const finishReview = () => {
       </div>
     </div>
 
+    <!-- ================= NAVIGASI DESKTOP ================= -->
     <div
       class="hidden lg:block fixed bottom-0 left-0 right-0 bg-tryout-surface border-t border-tryout-border z-30 shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.05)]">
       <div class="max-w-7xl mx-auto px-8 py-4 flex items-center w-[calc(100%-22rem)] gap-4">
@@ -676,6 +696,7 @@ const finishReview = () => {
       </div>
     </div>
 
+    <!-- ================= PANEL PETA SOAL (MOBILE) ================= -->
     <transition name="fade">
       <div v-if="showNavigationPanel" class="lg:hidden fixed inset-0 bg-black/60 z-50 backdrop-blur-sm"
         @click="showNavigationPanel = false"></div>
@@ -715,6 +736,7 @@ const finishReview = () => {
     </transition>
   </div>
 </template>
+
 
 <style scoped>
 .custom-scrollbar::-webkit-scrollbar {
