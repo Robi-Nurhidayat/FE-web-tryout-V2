@@ -21,7 +21,7 @@ const currentIndex = ref(0)
 const tempAnswer = ref('')
 const savedAnswers = ref([])
 const remainingTime = ref(0)
-const initialTime = ref(0) // Merekam total detik alokasi awal
+const initialTime = ref(0)
 
 const showNavigationPanel = ref(false)
 const isExamSubmitted = ref(false)
@@ -51,12 +51,11 @@ const { data: response, pending, error } = await useAsyncData(
   () => $api(`/api/v1/questions-banks/${questionBankId}/question-items`, { method: 'GET' })
 )
 
-console.log("isi responses", response.value)
-
 // ================= SORTING =================
 const { sortQuestions } = useQuestionSort()
 
 const questions = computed(() => sortQuestions(response.value?.data || []))
+
 // ================= MOUNTED =================
 onMounted(() => {
   questionBank.value = questionBankRes.value?.data || null
@@ -162,6 +161,8 @@ const startTimer = () => {
     if (remainingTime.value > 0) {
       remainingTime.value--
     } else {
+      clearInterval(timer)
+      timer = null
       handleAutoSubmit()
     }
   }, 1000)
@@ -180,14 +181,15 @@ const formatTime = computed(() => {
 const timeWarning = computed(() => remainingTime.value > 0 && remainingTime.value < 600)
 
 // ================= HELPER FUNCTIONS =================
+// Tidak memakai new URL() dan tidak memotong ? / # agar nama file
+// yang mengandung karakter tersebut tetap benar.
 const getImageUrl = (filename) => {
   if (!filename || filename.trim() === '' || filename === '-') return null
 
   const base = String(config.public.apiBaseUrl || '').replace(/\/+$/, '')
 
-  let path = filename.startsWith('http')
-    ? new URL(filename).pathname
-    : filename
+  // Buang host jika berupa URL penuh
+  let path = filename.replace(/^https?:\/\/[^/]+/i, '')
 
   if (!path.startsWith('/')) path = `/${path}`
   if (!path.startsWith('/uploads/')) path = `/uploads${path}`
@@ -210,8 +212,7 @@ const getQuestionTitle = (question) => {
 
 const isValidImageUrl = (url) => {
   if (!url || typeof url !== 'string' || url === 'null' || url.trim() === '') return false
-  let cleanUrl = url.startsWith('http') ? url.split('?')[0].split('#')[0] : url
-  return /\.(jpg|jpeg|png|webp|gif|bmp|svg|tiff|ico)$/i.test(cleanUrl)
+  return /\.(jpg|jpeg|png|webp|gif|bmp|svg|tiff|ico)$/i.test(url.trim())
 }
 
 const isQuestionImage = (question) => isValidImageUrl(question?.questionImage)
@@ -224,9 +225,14 @@ const getOptionValue = (question, optionLetter) => {
 }
 
 const isOptionImage = (question, optionLetter) => isValidImageUrl(question?.[`imageOption${optionLetter}`])
+
 const hasImageOptions = computed(() =>
   ['A', 'B', 'C', 'D', 'E'].some(letter => isOptionImage(currentQuestion.value, letter))
 )
+
+const logImageError = (label, e) => {
+  console.error(`Gagal load gambar (${label}):`, e.target?.src)
+}
 
 // ================= LOAD & SAVE ANSWER =================
 const loadAnswerForCurrentQuestion = () => {
@@ -237,6 +243,7 @@ const loadAnswerForCurrentQuestion = () => {
 
   tempAnswer.value = saved ? saved.selectedOptionKey : ''
 }
+
 const isQuestionSaved = (question) => {
   if (!question?.id) return false
   return savedAnswers.value.some(item => item.questionItemId === question.id)
@@ -256,7 +263,6 @@ const getGridButtonClass = (question, index) => {
     return 'bg-tryout-surface text-tryout-muted border-tryout-border hover:bg-tryout-hover'
   }
 }
-
 
 const buttonSaveJawabanSementara = () => {
   if (!tempAnswer.value || tempAnswer.value.trim() === '') return
@@ -288,7 +294,6 @@ const buttonSaveJawabanSementara = () => {
     nextQuestion()
   }
 }
-
 
 const nextQuestion = () => {
   if (currentIndex.value < questions.value.length - 1) {
@@ -426,7 +431,11 @@ const submitToBackend = async () => {
 }
 
 const answeredCount = computed(() => savedAnswers.value.length)
-const progressPercentage = computed(() => Math.round((answeredCount.value / questions.value.length) * 100))
+const progressPercentage = computed(() =>
+  questions.value.length === 0
+    ? 0
+    : Math.round((answeredCount.value / questions.value.length) * 100)
+)
 </script>
 
 <template>
@@ -459,9 +468,9 @@ const progressPercentage = computed(() => Math.round((answeredCount.value / ques
     </div>
   </div>
 
-  <div v-else class="min-h-screen flex flex-col font-sans bg-tryout-bg
-           selection:bg-blue-100">
+  <div v-else class="min-h-screen flex flex-col font-sans bg-tryout-bg selection:bg-blue-100">
 
+    <!-- ================= HEADER ================= -->
     <header class="sticky top-0 z-30 border-b shadow-sm transition-colors
                    bg-tryout-navbar border-tryout-border">
       <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
@@ -498,17 +507,15 @@ const progressPercentage = computed(() => Math.round((answeredCount.value / ques
       </div>
     </header>
 
-    <!-- <div class="max-w-7xl mx-auto w-full flex-1 flex gap-6 p-4 sm:p-6 lg:p-8 pb-40 lg:pb-8 relative"> -->
-
     <div class="flex">
 
-      <div class="flex-1 shadow-sm border p-5 sm:p-8 flex flex-col h-fit
+      <!-- ================= KARTU SOAL ================= -->
+      <div class="flex-1 min-w-0 shadow-sm border p-5 sm:p-8 flex flex-col h-fit
                   bg-tryout-surface border-tryout-border">
 
         <div class="flex items-center justify-between mb-6 pb-4 border-b border-tryout-divider">
           <div class="flex items-center gap-3">
-            <span class="px-3 py-1 rounded-lg font-bold text-sm shadow-sm
-                         bg-tryout-primary text-white">
+            <span class="px-3 py-1 rounded-lg font-bold text-sm shadow-sm bg-tryout-primary text-white">
               #{{ currentIndex + 1 }}
             </span>
             <div class="flex flex-col">
@@ -532,49 +539,15 @@ const progressPercentage = computed(() => Math.round((answeredCount.value / ques
           </span>
         </div>
 
+        <!-- Gambar soal / teks soal -->
         <div class="mb-8 overflow-hidden text-base sm:text-lg leading-relaxed text-tryout-text">
           <img v-if="isQuestionImage(currentQuestion)" :src="getImageUrl(currentQuestion?.questionImage)" alt="Soal"
-            class="max-w-full h-[600px] object-contain rounded-xl mx-auto border border-tryout-border"
-            @error="(e) => e.target.style.display = 'none'" />
+            class="max-w-full max-h-[400px] w-auto h-auto object-contain rounded-xl mx-auto border border-tryout-border"
+            @error="(e) => logImageError('soal', e)" />
           <div v-else-if="currentQuestion?.questionText" v-html="currentQuestion.questionText"></div>
         </div>
 
-        <!-- <div class="space-y-3 mb-8">
-          <template v-for="letter in ['A', 'B', 'C', 'D', 'E']" :key="letter">
-            <label v-if="getOptionValue(currentQuestion, letter)"
-              class="group flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 select-none active:scale-[0.99]"
-              :class="tempAnswer === letter
-                ? 'bg-tryout-primary/10 border-tryout-primary shadow-sm'
-                : 'bg-tryout-surface border-tryout-border hover:border-tryout-primary hover:bg-tryout-hover'">
-              <input type="radio" :name="`question-${currentQuestion?.id}`" :value="letter" v-model="tempAnswer"
-                class="sr-only" />
-
-              <div
-                class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center transition-colors"
-                :class="tempAnswer === letter
-                  ? 'border-tryout-primary bg-tryout-primary'
-                  : 'border-tryout-border bg-tryout-input group-hover:border-tryout-primary'">
-                <div v-show="tempAnswer === letter" class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full"></div>
-              </div>
-
-              <div class="flex items-start gap-3 flex-1 overflow-hidden">
-                <span class="font-bold mt-0.5 text-tryout-muted">{{ letter }}.</span>
-
-                <div class="flex-1 font-medium text-tryout-text">
-                  <img v-if="isOptionImage(currentQuestion, letter)"
-                    :src="getImageUrl(currentQuestion?.[`imageOption${letter}`])" alt="Opsi"
-                    class="max-w-full h-[170px] object-contain rounded-lg border border-tryout-border"
-                    @error="(e) => e.target.style.display = 'none'" />
-
-                  <span v-else class="block break-words">
-                    {{ currentQuestion?.[`option${letter}`] }}
-                  </span>
-                </div>
-              </div>
-            </label>
-          </template>
-</div> -->
-
+        <!-- Opsi jawaban -->
         <div :class="hasImageOptions
           ? 'grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-5 gap-3 mb-8'
           : 'space-y-3 mb-8'">
@@ -610,8 +583,8 @@ const progressPercentage = computed(() => Math.round((answeredCount.value / ques
                   <img v-if="isOptionImage(currentQuestion, letter)"
                     :src="getImageUrl(currentQuestion?.[`imageOption${letter}`])" alt="Opsi"
                     class="object-contain rounded-lg border border-tryout-border bg-white"
-                    :class="hasImageOptions ? 'w-full h-[170px]' : 'max-w-full h-[170px]'"
-                    @error="(e) => e.target.style.display = 'none'" />
+                    :class="hasImageOptions ? 'w-full h-[170px]' : 'max-w-full max-h-[170px]'"
+                    @error="(e) => logImageError(`opsi ${letter}`, e)" />
 
                   <span v-else class="block break-words">
                     {{ currentQuestion?.[`option${letter}`] }}
@@ -623,10 +596,11 @@ const progressPercentage = computed(() => Math.round((answeredCount.value / ques
         </div>
       </div>
 
-      <div class="hidden lg:flex flex-col w-80 shadow-sm border h-[calc(100vh-8rem)] sticky top-24
+      <!-- ================= DAFTAR SOAL (DESKTOP) ================= -->
+      <div class="hidden lg:flex flex-col w-80 shrink-0 shadow-sm border h-[calc(100vh-8rem)] sticky top-24
                   bg-tryout-surface border-tryout-border">
 
-        <div class="p-6 border-b  bg-tryout-hover border-tryout-border">
+        <div class="p-6 border-b bg-tryout-hover border-tryout-border">
           <h3 class="font-bold flex items-center gap-2 text-tryout-text">
             <svg class="w-5 h-5 text-tryout-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -660,7 +634,7 @@ const progressPercentage = computed(() => Math.round((answeredCount.value / ques
           </div>
         </div>
 
-        <div class="p-5 border-t rounded-b-2xl bg-tryout-hover border-tryout-border">
+        <div class="p-5 border-t bg-tryout-hover border-tryout-border">
           <div class="flex justify-between text-xs font-semibold mb-3 px-1 text-tryout-muted">
             <span>Terjawab: <span class="text-emerald-500 font-bold">{{ answeredCount }}</span></span>
             <span>Belum: <span class="text-red-500 font-bold">{{ questions.length - answeredCount }}</span></span>
@@ -676,6 +650,7 @@ const progressPercentage = computed(() => Math.round((answeredCount.value / ques
       </div>
     </div>
 
+    <!-- ================= NAVIGASI MOBILE ================= -->
     <div class="lg:hidden fixed bottom-0 left-0 right-0 border-t p-3 pb-safe z-30
                 bg-tryout-navbar border-tryout-border
                 shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.15)]">
@@ -713,6 +688,7 @@ const progressPercentage = computed(() => Math.round((answeredCount.value / ques
       </div>
     </div>
 
+    <!-- ================= NAVIGASI DESKTOP ================= -->
     <div class="hidden lg:block fixed bottom-0 left-0 right-0 border-t z-30
                 bg-tryout-navbar border-tryout-border">
       <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between w-[calc(100%-22rem)]">
@@ -743,6 +719,7 @@ const progressPercentage = computed(() => Math.round((answeredCount.value / ques
       </div>
     </div>
 
+    <!-- ================= PANEL DAFTAR SOAL (MOBILE) ================= -->
     <transition name="fade">
       <div v-if="showNavigationPanel" class="lg:hidden fixed inset-0 bg-black/60 z-50 backdrop-blur-sm"
         @click="showNavigationPanel = false"></div>

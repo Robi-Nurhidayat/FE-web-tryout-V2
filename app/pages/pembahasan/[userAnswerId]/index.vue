@@ -233,6 +233,9 @@ const totalParticipants = computed(() => leaderboard.value?.totalParticipants ||
 const isUserInTop100 = computed(() => rankings.value.some(r => r.isCurrentUser))
 const hasLeaderboardData = computed(() => rankings.value.length > 0 || userRank.value !== null)
 
+// ✅ BARU: link ke halaman ranking lengkap
+const rankingUrl = computed(() => `/ranking/${userAnswerId}`)
+
 const getRankColor = (index) => {
   if (index === 0) return 'bg-gradient-to-br from-yellow-400 to-yellow-600 text-white'
   if (index === 1) return 'bg-gradient-to-br from-gray-300 to-gray-500 text-white'
@@ -600,6 +603,20 @@ const isSubSession = computed(() => {
                 </span>
               </p>
             </div>
+
+            <!-- ✅ BARU: Tombol ke halaman ranking lengkap -->
+            <NuxtLink
+              v-if="hasLeaderboardData && !loadingLeaderboard"
+              :to="rankingUrl"
+              class="mt-4 w-full font-extrabold py-3.5 px-5 rounded-2xl transition-all duration-200 flex items-center justify-center gap-2 shadow-md active:scale-[0.98] relative z-10
+                     bg-tryout-primary text-white hover:opacity-90"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h10" />
+              </svg>
+              Lihat Semua Ranking
+              <span v-if="totalParticipants > 0" class="text-xs font-bold opacity-80">({{ totalParticipants }} peserta)</span>
+            </NuxtLink>
 
           </div>
         </div>

@@ -1,0 +1,4 @@
+curl -X POST "http://localhost:9000/api/v1/dev/leaderboard-seeder?questionBankId=21rw3q5qozlbkv7g&count=200&attempt=3" -H "Authorization: eyJhbGciOiJIUzM4NCJ9.eyJpc3MiOiJOeW9iYSBBU04iLCJ1c2VybmFtZSI6InJvYmlAZ21haWwuY29tIiwiYXV0a
+G9yaXRpZXMiOiJBRE1JTiIsImlhdCI6MTc5NDg4NTQ4NywiZXhwIjoxNzk0OTcxODg3fQ.GnUkQgtr4CygiYZLvDX01P02IQXMnUnMhTNiOaydCbze8lxDR2mC4Cmry5vzZjCR"
+
+curl -X DELETE "http://localhost:9000/api/v1/dev/leaderboard-seeder" -H "Authorization: eyJhbGciOiJIUzM4NCJ9.eyJpc3MiOiJOeW9iYSBBU04iLCJ1c2VybmFtZSI6InJvYmlAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOiJBRE1JTiIsImlhdCI6MTc5NDg4NTQ4NywiZXhwIjoxNzk0OTcxODg3fQ.GnUkQgtr4CygiYZLvDX01P02IQXMnUnMhTNiOaydCbze8lxDR2mC4Cmry5vzZjCR"

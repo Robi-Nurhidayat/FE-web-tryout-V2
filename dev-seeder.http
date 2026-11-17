@@ -1,0 +1,13 @@
+### ===== GANTI 3 NILAI INI =====
+@baseUrl = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiJ9.TEMPEL_TOKEN_ADMIN_DI_SINI
+@bankId = xYz12
+
+### 1. Buat 200 peserta palsu (percobaan ke-1)
+POST {{baseUrl}}/api/v1/dev/leaderboard-seeder?questionBankId={{bankId}}&count=200&attempt=1
+Authorization: Bearer {{token}}
+
+### 2. Buat 200 peserta palsu (percobaan ke-3)
+POST {{baseUrl}}/api/v1/dev/leaderboard-seeder?questionBankId={{bankId}}&count=200&attempt=3
+Authorization: Bearer {{token}}
+

@@ -52,28 +52,28 @@ const features = [
   {
     icon: '💻',
     title: 'Simulasi CAT',
-    description: 'Tampilan, timer, dan sistem penilaian dibuat mirip dengan ujian CAT BKN sebenarnya.',
+    description: 'Latihan mengerjakan soal dengan tampilan seperti ujian CAT.',
     bgColor: 'bg-blue-50 hover:bg-blue-100',
     iconColor: 'text-blue-600 bg-blue-100'
   },
   {
     icon: '🏆',
     title: 'Ranking Nasional',
-    description: 'Ketahui posisimu di antara ribuan pejuang CPNS lainnya se-Indonesia secara langsung.',
+    description: 'Lihat peringkatmu dibandingkan peserta lain dari seluruh Indonesia.',
     bgColor: 'bg-orange-50 hover:bg-orange-100',
     iconColor: 'text-orange-600 bg-orange-100'
   },
-  {
-    icon: '💡',
-    title: 'Pembahasan Setiap Soal',
-    description: 'Setiap soal dilengkapi dengan penjelasan untuk membantu Anda memahami materi dengan lebih baik.',
-    bgColor: 'bg-emerald-50 hover:bg-emerald-100',
-    iconColor: 'text-emerald-600 bg-emerald-100'
-  },
+ {
+  icon: '📊',
+  title: 'Riwayat Pengerjaan',
+  description: 'Lihat kembali hasil dan riwayat latihan yang pernah kamu kerjakan.',
+  bgColor: 'bg-emerald-50 hover:bg-emerald-100',
+  iconColor: 'text-emerald-600 bg-emerald-100'
+},
   {
     icon: '📱',
     title: 'Akses Fleksibel',
-    description: 'Kerjakan simulasi tryout kapan saja dan di mana saja. Platform kami dapat diakses lewat komputer maupun HP.',
+    description: 'Akses simulasi tryout kapan saja melalui komputer maupun perangkat mobile.',
     bgColor: 'bg-purple-50 hover:bg-purple-100',
     iconColor: 'text-purple-600 bg-purple-100'
   }
